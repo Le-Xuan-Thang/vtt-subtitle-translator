@@ -1,0 +1,396 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-bg: #0a0a0a;
+  --secondary-bg: #111111;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Background pattern overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Scrollbar styling for dark mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Apple-inspired dark design system */
+.apple-card {
+  @apply backdrop-blur-xl border rounded-2xl shadow-2xl transition-all duration-300 hover:shadow-3xl;
+  background: var(--card-bg);
+  border-color: var(--border-color);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.apple-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+.apple-button {
+  @apply font-medium px-6 py-3 rounded-xl transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden;
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.apple-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, var(--accent-hover) 0%, #1d4ed8 100%);
+}
+
+.apple-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.apple-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.apple-button:hover::before {
+  left: 100%;
+}
+
+.apple-button-secondary {
+  @apply font-medium px-6 py-3 rounded-xl transition-all duration-200 shadow-lg;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
+.apple-button-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.apple-input {
+  @apply w-full px-4 py-3 rounded-xl focus:outline-none transition-all duration-200;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  backdrop-filter: blur(10px);
+}
+
+.apple-input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.apple-input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Textarea specific styling */
+.apple-input.resize-none {
+  resize: none;
+  min-height: 120px;
+}
+
+.apple-select {
+  @apply w-full px-4 py-3 rounded-xl focus:outline-none appearance-none cursor-pointer transition-all duration-200;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  backdrop-filter: blur(10px);
+}
+
+.apple-select:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Fix dropdown options dark mode styling */
+.apple-select option {
+  background: var(--secondary-bg);
+  color: var(--text-primary);
+  padding: 8px 12px;
+}
+
+/* Better cross-browser dropdown styling */
+.apple-select {
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Custom dropdown arrow */
+.apple-select::-ms-expand {
+  display: none;
+}
+
+/* Success state */
+.apple-success {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--success-color);
+  color: var(--success-color);
+}
+
+/* Warning state */
+.apple-warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: var(--warning-color);
+  color: var(--warning-color);
+}
+
+/* Error state */
+.apple-error {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--error-color);
+  color: var(--error-color);
+}
+
+/* Progress bar styling */
+.apple-progress {
+  @apply w-full rounded-full overflow-hidden;
+  background: rgba(255, 255, 255, 0.1);
+  height: 8px;
+}
+
+.apple-progress-bar {
+  @apply h-full rounded-full transition-all duration-300;
+  background: linear-gradient(90deg, var(--accent-color), var(--success-color));
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+/* Glassmorphism header */
+.glass-header {
+  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced header visibility transitions */
+.glass-header.hide {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.glass-header.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse animation for loading states */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Flow animation for parallax elements */
+@keyframes flow-up {
+  0% { 
+    transform: translateY(100vh) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(-20vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.flow-up {
+  animation: flow-up 8s linear infinite;
+}
+
+/* Parallax flow points styling */
+.flow-point {
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.flow-point::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: inner-pulse 2s ease-in-out infinite;
+}
+
+@keyframes inner-pulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.7;
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .glass-header {
+    backdrop-filter: blur(15px);
+  }
+  
+  .apple-card {
+    @apply mx-2;
+  }
+}
+
+/* Enhanced floating animation with parallax */
+@keyframes float-parallax {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% { 
+    transform: translateY(-15px) rotate(1deg);
+  }
+  66% { 
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+.float-parallax {
+  animation: float-parallax 8s ease-in-out infinite;
+}
+
+/* Gradient flow line */
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-flow {
+  background: linear-gradient(270deg, rgba(59, 130, 246, 0.3), rgba(168, 85, 247, 0.3), rgba(34, 197, 94, 0.3));
+  background-size: 200% 200%;
+  animation: gradient-flow 4s ease infinite;
+}
+
+/* Floating Action Button enhancements */
+.fab-ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Smooth section transitions */
+section {
+  scroll-margin-top: 100px;
+}
+
+/* Enhanced hover effects for interactive elements */
+.interactive-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
