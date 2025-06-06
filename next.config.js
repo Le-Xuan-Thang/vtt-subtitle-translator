@@ -4,6 +4,8 @@ const nextConfig = {
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
   distDir: 'out',
+  basePath: '/vtt-subtitle-translator',
+  assetPrefix: '/vtt-subtitle-translator',
   images: {
     unoptimized: true
   }
